@@ -1,0 +1,56 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Runtime
+pids
+*.pid
+# ใช้โดย process manager เช่น PM2
+*.seed
+
+# Dependency directories
+node_modules/
+.bun/
+# Bun มีระบบ cache (เหมือน node_modules) 
+
+# Build output
+dist/
+dist-ssr/
+.vite/
+# Vite build cache
+
+# Local env files
+.env
+# เก็บ API key, token ฯลฯ → ห้าม push ขึ้น git
+.env.*.local
+# ตัวแปรเฉพาะเครื่อง dev
+
+# System
+.DS_Store
+Thumbs.db
+# ไฟล์จาก Windows/macOS ที่ไม่จำเป็น (.DS_Store, Thumbs.db)
+ehthumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Editor settings
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Tailwind (CLI output)
+*.css.txt
+# บางครั้ง Tailwind CLI output แบบนี้โดยไม่ได้ตั้งใจ
+
+# Package managers (optional lockfile ignore)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
