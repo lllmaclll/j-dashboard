@@ -1,2 +1,14 @@
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui" {
+  themes: light --default, dracula --prefersdark;
+}
+
+html {
+  transition: background-color 0.5s ease, color 0.5s ease;
+  transform-origin: top right;
+}
+
+body {
+  transition: background-color 0.5s ease, color 0.5s ease;
+  transform-origin: top right;
+}
