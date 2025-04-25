@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { AiFillHome, AiOutlineGold } from 'react-icons/ai';
 import { MdOutlineAir, MdOutlineMeetingRoom } from 'react-icons/md';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { FaPlug } from "react-icons/fa";
 import ThemeToggle from './ThemeToggle';
+import Hamburger from './Hamburger';
 
 const Sidebar: React.FC = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -19,20 +20,32 @@ const Sidebar: React.FC = () => {
   ];
 
   return (
-    <div className={`h-screen ${isCollapsed ? 'w-20' : 'w-64'} transition-all bg-base-200 p-4 flex flex-col justify-between`}>
+    <aside className={`
+      bg-base-200 flex justify-between transition-all
+      sm:flex-col
+      px-2 py-0 sm:p-4
+      ${isCollapsed ? 'sm:w-20' : 'sm:w-64'}
+      w-screen
+      sm:h-screen
+      ${isCollapsed ? 'h-[50px]' : 'h-screen'}
+    `}>
       <div>
+        <div className='flex justify-between items-center w-screen h-[50px] sm:hidden'>
+          <Hamburger toggleCollapse={toggleCollapse} isCollapsed={isCollapsed} />
+          <ThemeToggle />
+        </div>
+
         {/* Logo */}
-        <div className="mb-8 flex justify-center">
+        <div className={`my-8 justify-center ${isCollapsed ? 'hidden' : 'flex'} sm:mb-8 sm:flex`}>
           <img
             src="/logo.jpg"
             alt="Logo"
-            className={`transition-all duration-300 ${isCollapsed ? 'w-10 h-10' : 'w-50 h-50'
-              } rounded-xl`}
+            className={`transition-all duration-300 ${isCollapsed ? 'w-10 h-10' : 'w-70 h-70 sm:w-50 sm:h-50'}  rounded-xl`}
           />
         </div>
 
         {/* Menu */}
-        <ul className="menu p-0">
+        <ul className={`menu p-0 hidden sm:block`}>
           {menuItems.map((item, idx) => (
             <li key={idx} className="mb-2">
               <a className="flex items-center gap-2">
@@ -42,16 +55,31 @@ const Sidebar: React.FC = () => {
             </li>
           ))}
         </ul>
+
+        {/* Menu Mobile */}
+        <div className={`${isCollapsed ? 'hidden' : 'flex justify-center'} sm:hidden`}>
+          <ul className={`menu p-0 block`}>
+            {menuItems.map((item, idx) => (
+              <li key={idx} className="mb-2">
+                <a className={`flex items-center gap-5`}>
+                  {/* เพิ่มขนาด icon เฉพาะ mobile */}
+                  {React.cloneElement(item.icon, { size: 32 })}
+                  {!isCollapsed && <span className='font-bold text-3xl'>{item.label}</span>}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
 
       {/* Footer */}
-      <div className="flex flex-col gap-4 items-center">
+      <div className={`${isCollapsed ? 'flex-col' : 'flex-row justify-center'} gap-4 items-center hidden sm:flex`}>
         <ThemeToggle /> {/* ✅ ใช้ component ที่แยกออกมา */}
         <button className="btn btn-square btn-sm" onClick={toggleCollapse}>
           {isCollapsed ? <FiChevronRight size={24} /> : <FiChevronLeft size={24} />}
         </button>
       </div>
-    </div>
+    </aside>
   );
 };
 
