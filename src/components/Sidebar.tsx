@@ -23,11 +23,12 @@ const Sidebar: React.FC = () => {
     <aside className={`
       bg-base-200 flex justify-between transition-all
       sm:flex-col
-      px-2 py-0 sm:p-4
+      py-0 sm:p-4
       ${isCollapsed ? 'sm:w-20' : 'sm:w-64'}
       w-screen
       sm:h-screen
       ${isCollapsed ? 'h-[50px]' : 'h-screen'}
+      sticky top-0
     `}>
       <div>
         <div className='flex justify-between items-center w-screen h-[50px] sm:hidden'>
@@ -45,16 +46,18 @@ const Sidebar: React.FC = () => {
         </div>
 
         {/* Menu */}
-        <ul className={`menu p-0 hidden sm:block`}>
-          {menuItems.map((item, idx) => (
-            <li key={idx} className="mb-2">
-              <a className="flex items-center gap-2">
-                {item.icon}
-                {!isCollapsed && <span className='font-bold'>{item.label}</span>}
-              </a>
-            </li>
-          ))}
-        </ul>
+        <div className={`flex justify-center`}>
+          <ul className={`menu p-0 hidden sm:block`}>
+            {menuItems.map((item, idx) => (
+              <li key={idx} className="mb-2">
+                <a className="flex items-center gap-2">
+                  {item.icon}
+                  {!isCollapsed && <span className='font-bold'>{item.label}</span>}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
 
         {/* Menu Mobile */}
         <div className={`${isCollapsed ? 'hidden' : 'flex justify-center'} sm:hidden`}>
@@ -75,7 +78,7 @@ const Sidebar: React.FC = () => {
       {/* Footer */}
       <div className={`${isCollapsed ? 'flex-col' : 'flex-row justify-center'} gap-4 items-center hidden sm:flex`}>
         <ThemeToggle /> {/* ✅ ใช้ component ที่แยกออกมา */}
-        <button className="btn btn-square btn-sm" onClick={toggleCollapse}>
+        <button className="btn btn-circle border-0" onClick={toggleCollapse}>
           {isCollapsed ? <FiChevronRight size={24} /> : <FiChevronLeft size={24} />}
         </button>
       </div>

@@ -29,13 +29,13 @@ const ThemeToggle: React.FC = () => {
   }, []);
 
   return (
-    <label className="swap swap-rotate btn btn-square btn-sm">
+    <label className="swap swap-rotate btn btn-circle sm:btn-square border-0 me-2 sm:me-0">
       {/* checkbox ที่ซ่อนไว้ ใช้ควบคุมธีม */}
       <input type="checkbox" className="theme-controller" checked={isDark} onChange={toggleTheme}  />
 
       {/* sun icon */}
       <svg
-        className="swap-off h-6 w-6 fill-current"
+        className="swap-off h-7 w-7 fill-current"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24">
         <path
@@ -44,7 +44,7 @@ const ThemeToggle: React.FC = () => {
 
       {/* moon icon */}
       <svg
-        className="swap-on h-6 w-6 fill-current"
+        className="swap-on h-7 w-7 fill-current"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24">
         <path

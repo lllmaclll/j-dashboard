@@ -1,4 +1,5 @@
 {
+  "extends": "./tsconfig.json", // extends คือการ "สืบทอดค่า" จาก tsconfig อื่นนั่นเอง | เวลา TypeScript อ่าน tsconfig.app.json มันจะคิดว่า tsconfig.app.json มี baseUrl และ paths ด้วยเพราะไปดึงมาจาก tsconfig.json นั่นเอง!
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "target": "ES2020",

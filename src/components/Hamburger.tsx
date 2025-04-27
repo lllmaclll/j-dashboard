@@ -7,7 +7,7 @@ interface HamburgerProps {
 
 const Hamburger: React.FC<HamburgerProps> = ({ toggleCollapse, isCollapsed  }) => {
     return (
-        <label className="btn btn-circle swap swap-rotate">
+        <label className="btn btn-circle border-0 swap swap-rotate ms-2">
             {/* this hidden checkbox controls the state */}
             <input type="checkbox" checked={isCollapsed} onChange={toggleCollapse} />
 

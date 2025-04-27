@@ -1,11 +1,11 @@
 import './App.css'
-import Sidebar from './components/Sidebar'
+import Main from './components/Main'
 
 function App() {
 
   return (
-    <div className='w-screen h-screen'>
-      <Sidebar />
+    <div>
+      <Main />
     </div>
   )
 }
