@@ -1,0 +1,12 @@
+# กำหนดให้ไฟล์เหล่านี้ใช้ LF เสมอ (เหมาะสำหรับโค้ด)
+*.js text eol=lf
+*.ts text eol=lf
+*.json text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.md text eol=lf
+
+# ไฟล์ binary ไม่ต้องจัดการ line endings
+*.png binary
+*.jpg binary
+*.lock binary  # เช่น bun.lockb, package-lock.json
