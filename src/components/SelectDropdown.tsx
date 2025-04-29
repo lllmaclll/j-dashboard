@@ -1,26 +1,31 @@
-import React from 'react'
+import React from 'react';
 
 interface SelectDropdownProps {
-  selectedOption: string
-  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  options: { label: string; value: string }[];
+  className?: string;
 }
 
-const SelectDropdown: React.FC<SelectDropdownProps> = ({ selectedOption, onChange }) => {
+const SelectDropdown: React.FC<SelectDropdownProps> = ({
+  value,
+  onChange,
+  options,
+  className = '',
+}) => {
   return (
-    <div className="flex items-center mb-5 w-full">
-      {/* <label className="hidden sm:block text-lg font-medium mb-2">Select an Option</label> */}
-      <select
-        value={selectedOption}
-        onChange={onChange}
-        className="select select-bordered w-full"
-      >
-        <option value="option1">Option 1</option>
-        <option value="option2">Option 2</option>
-        <option value="option3">Option 3</option>
-        <option value="option4">Option 4</option>
-      </select>
-    </div>
-  )
-}
+    <select
+      value={value}
+      onChange={onChange}
+      className={`select select-primary ${className}`}
+    >
+      {options.map((opt) => (
+        <option key={opt.value} value={opt.value}>
+          {opt.label}
+        </option>
+      ))}
+    </select>
+  );
+};
 
-export default SelectDropdown
+export default SelectDropdown;

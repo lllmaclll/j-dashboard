@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+// import { Link } from 'react-router-dom'
 import { AiFillHome, AiOutlineGold } from 'react-icons/ai';
 import { MdOutlineAir, MdOutlineMeetingRoom } from 'react-icons/md';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
@@ -12,12 +13,12 @@ const Sidebar: React.FC = () => {
   const toggleCollapse = () => setIsCollapsed(!isCollapsed);
 
   const menuItems = [
-    { icon: <AiFillHome size={24} />, label: 'Home' },
-    { icon: <MdOutlineAir size={24} />, label: 'Air' },
-    { icon: <MdOutlineMeetingRoom size={24} />, label: 'Air Room' },
-    { icon: <AiOutlineGold size={24} />, label: 'Gold' },
-    { icon: <FaPlug size={24} />, label: 'Plug' },
-  ];
+    { icon: <AiFillHome size={24} />, label: 'Home', path: '/' },
+    { icon: <MdOutlineAir size={24} />, label: 'Air', path: '/air' },
+    { icon: <MdOutlineMeetingRoom size={24} />, label: 'Air Room', path: '/air-room' },
+    { icon: <AiOutlineGold size={24} />, label: 'Gold', path: '/gold' },
+    { icon: <FaPlug size={24} />, label: 'Plug', path: '/plug' },
+  ]
 
   return (
     <aside className={`
@@ -50,10 +51,12 @@ const Sidebar: React.FC = () => {
           <ul className={`menu p-0 hidden sm:block`}>
             {menuItems.map((item, idx) => (
               <li key={idx} className="mb-2">
+                {/* <Link to={item.path} className="flex items-center gap-2"> */}
                 <a className="flex items-center gap-2">
                   {item.icon}
                   {!isCollapsed && <span className='font-bold'>{item.label}</span>}
                 </a>
+                {/* </Link> */}
               </li>
             ))}
           </ul>
@@ -64,11 +67,13 @@ const Sidebar: React.FC = () => {
           <ul className={`menu p-0 block`}>
             {menuItems.map((item, idx) => (
               <li key={idx} className="mb-2">
+                {/* <Link to={item.path} className={`flex items-center gap-5`}> */}
                 <a className={`flex items-center gap-5`}>
                   {/* เพิ่มขนาด icon เฉพาะ mobile */}
                   {React.cloneElement(item.icon, { size: 32 })}
                   {!isCollapsed && <span className='font-bold text-3xl'>{item.label}</span>}
                 </a>
+                {/* </Link> */}
               </li>
             ))}
           </ul>
