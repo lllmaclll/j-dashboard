@@ -40,7 +40,7 @@ const Sidebar: React.FC = () => {
         {/* Logo */}
         <div className={`my-8 justify-center ${isCollapsed ? 'hidden' : 'flex'} sm:mb-8 sm:flex`}>
           <img
-            src="/logo.jpg"
+            src="/I.PNG"
             alt="Logo"
             className={`transition-all duration-300 ${isCollapsed ? 'w-10 h-10' : 'w-70 h-70 sm:w-50 sm:h-50'}  rounded-xl`}
           />
