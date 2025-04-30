@@ -9,4 +9,5 @@
 # ไฟล์ binary ไม่ต้องจัดการ line endings
 *.png binary
 *.jpg binary
-*.lock binary  # เช่น bun.lockb, package-lock.json
+# เช่น bun.lockb, package-lock.json
+*.lock binary

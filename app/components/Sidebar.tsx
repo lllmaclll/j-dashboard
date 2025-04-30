@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-// import { Link } from 'react-router-dom'
+import { Link } from "react-router";
 import { AiFillHome, AiOutlineGold } from 'react-icons/ai';
 import { MdOutlineAir, MdOutlineMeetingRoom } from 'react-icons/md';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { FaPlug } from "react-icons/fa";
-import ThemeToggle from './ThemeToggle';
-import Hamburger from './Hamburger';
+import ThemeToggle from '@components/ThemeToggle';
+import Hamburger from '@components/Hamburger';
 
 const Sidebar: React.FC = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -51,12 +51,10 @@ const Sidebar: React.FC = () => {
           <ul className={`menu p-0 hidden sm:block`}>
             {menuItems.map((item, idx) => (
               <li key={idx} className="mb-2">
-                {/* <Link to={item.path} className="flex items-center gap-2"> */}
-                <a className="flex items-center gap-2">
+                <Link to={item.path} className="flex items-center gap-2">
                   {item.icon}
                   {!isCollapsed && <span className='font-bold'>{item.label}</span>}
-                </a>
-                {/* </Link> */}
+                </Link>
               </li>
             ))}
           </ul>
@@ -67,13 +65,11 @@ const Sidebar: React.FC = () => {
           <ul className={`menu p-0 block`}>
             {menuItems.map((item, idx) => (
               <li key={idx} className="mb-2">
-                {/* <Link to={item.path} className={`flex items-center gap-5`}> */}
-                <a className={`flex items-center gap-5`}>
+                <Link to={item.path} className={`flex items-center gap-5`}>
                   {/* เพิ่มขนาด icon เฉพาะ mobile */}
                   {React.cloneElement(item.icon, { size: 32 })}
                   {!isCollapsed && <span className='font-bold text-3xl'>{item.label}</span>}
-                </a>
-                {/* </Link> */}
+                </Link>
               </li>
             ))}
           </ul>
@@ -91,4 +87,4 @@ const Sidebar: React.FC = () => {
   );
 };
 
-export default Sidebar;
+export default Sidebar

@@ -23,5 +23,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src"]
+  "include": ["app"] // บอก TypeScript ว่าให้รวมไฟล์ TypeScript (หรือ JavaScript ที่ใช้ร่วม) ที่อยู่ในโฟลเดอร์ app/ เท่านั้น เข้ามาคอมไพล์หรือเช็ค type
 }

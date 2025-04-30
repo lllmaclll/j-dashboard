@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import SearchBar from '@src/components/SearchBar'
-import SelectDropdown from '@src/components/SelectDropdown'
+import SelectDropdown from '@components/SelectDropdown'
+import SearchBar from '@components/SearchBar'
 
 const Main: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('')
@@ -25,7 +25,7 @@ const Main: React.FC = () => {
   }
 
   return (
-    <div className="w-screen h-screen p-5 flex flex-col">
+    <div className="h-screen p-5 flex flex-col">
       <div className="flex flex-col sm:flex-row items-center mb-5">
         <div className="text-3xl font-bold mb-5 sm:mb-0">Main</div>
 

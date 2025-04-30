@@ -2,7 +2,13 @@
   "compilerOptions": { 
     "baseUrl": ".", // baseUrl: "." ➔ บอกว่าให้ถือว่า โฟลเดอร์โปรเจกต์ (root) คือจุดเริ่มต้น (base path) ของการหาพวก relative path ➔ . คือ root ของโปรเจกต์นี้ เช่น ถ้ามีโฟลเดอร์ src/, public/, node_modules/ ก็อยู่ในนี้
     "paths": { // paths = บอกว่า ถ้าเห็น import อะไรที่ ขึ้นต้นด้วย @src/ ให้ map ไปที่ src/
-      "@src/*": ["src/*"] // @src/* คือ prefix ที่ตั้งเอง เช่น @src/components/Nav | src/* คือ path จริง ๆ ที่ให้ไปหาไฟล์
+      // "@app/*": ["app/*"] // @src/* คือ prefix ที่ตั้งเอง เช่น @src/components/Nav | src/* คือ path จริง ๆ ที่ให้ไปหาไฟล์
+      "@app/*": ["./app/*"],
+      "@components/*": ["./app/components/*"],
+      "@pages/*": ["./app/pages/*"],
+      "@assets/*": ["./app/assets/*"],
+      "@public/*": ["./public/*"],
+      "@react-router/*": ["./.react-router/*"]
     }
   },
   "files": [],
