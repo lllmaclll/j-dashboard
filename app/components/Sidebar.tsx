@@ -1,5 +1,6 @@
+'use client'
 import React, { useState } from 'react';
-// import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import { AiFillHome, AiOutlineGold } from 'react-icons/ai';
 import { MdOutlineAir, MdOutlineMeetingRoom } from 'react-icons/md';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
@@ -10,7 +11,10 @@ import Hamburger from './Hamburger';
 const Sidebar: React.FC = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
-  const toggleCollapse = () => setIsCollapsed(!isCollapsed);
+  const toggleCollapse = () => {
+    setIsCollapsed(!isCollapsed)
+    console.log("sdsdsdsd")
+  };
 
   const menuItems = [
     { icon: <AiFillHome size={24} />, label: 'Home', path: '/' },
@@ -51,12 +55,12 @@ const Sidebar: React.FC = () => {
           <ul className={`menu p-0 hidden sm:block`}>
             {menuItems.map((item, idx) => (
               <li key={idx} className="mb-2">
-                {/* <Link to={item.path} className="flex items-center gap-2"> */}
-                <a className="flex items-center gap-2">
+                <Link to={item.path} className="flex items-center gap-2">
+                {/* <a className="flex items-center gap-2"> */}
                   {item.icon}
                   {!isCollapsed && <span className='font-bold'>{item.label}</span>}
-                </a>
-                {/* </Link> */}
+                {/* </a> */}
+                </Link>
               </li>
             ))}
           </ul>
@@ -67,13 +71,13 @@ const Sidebar: React.FC = () => {
           <ul className={`menu p-0 block`}>
             {menuItems.map((item, idx) => (
               <li key={idx} className="mb-2">
-                {/* <Link to={item.path} className={`flex items-center gap-5`}> */}
-                <a className={`flex items-center gap-5`}>
+                <Link to={item.path} className={`flex items-center gap-5`}>
+                {/* <a className={`flex items-center gap-5`}> */}
                   {/* เพิ่มขนาด icon เฉพาะ mobile */}
                   {React.cloneElement(item.icon, { size: 32 })}
                   {!isCollapsed && <span className='font-bold text-3xl'>{item.label}</span>}
-                </a>
-                {/* </Link> */}
+                {/* </a> */}
+                </Link>
               </li>
             ))}
           </ul>
@@ -83,7 +87,7 @@ const Sidebar: React.FC = () => {
       {/* Footer */}
       <div className={`${isCollapsed ? 'flex-col' : 'flex-row justify-center'} gap-4 items-center hidden sm:flex`}>
         <ThemeToggle /> {/* ✅ ใช้ component ที่แยกออกมา */}
-        <button className="btn btn-circle border-0" onClick={toggleCollapse}>
+        <button className="btn btn-circle border-0" type='button' onClick={toggleCollapse}>
           {isCollapsed ? <FiChevronRight size={24} /> : <FiChevronLeft size={24} />}
         </button>
       </div>

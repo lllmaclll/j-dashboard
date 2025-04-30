@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
-import SearchBar from '@src/components/SearchBar'
-import SelectDropdown from '@src/components/SelectDropdown'
+import SelectDropdown from './SelectDropdown'
+import SearchBar from './SearchBar'
+// import SearchBar from '@app/components/SearchBar'
+// import SelectDropdown from '@app/components/SelectDropdown'
 
 const Main: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('')
@@ -25,12 +27,12 @@ const Main: React.FC = () => {
   }
 
   return (
-    <div className="w-screen h-screen p-5 flex flex-col">
+    <div className="h-full p-5 flex flex-col">
       <div className="flex flex-col sm:flex-row items-center mb-5">
         <div className="text-3xl font-bold mb-5 sm:mb-0">Main</div>
 
         <div className="flex flex-col sm:flex-row justify-end w-full gap-5 sm:ms-5 lg:ms-0">
-          <SelectDropdown
+          <SelectDropdown 
             value={selectedOption}
             onChange={handleDropdownChange}
             className="w-full sm:max-w-xs"
@@ -50,7 +52,7 @@ const Main: React.FC = () => {
         </div>
       </div>
 
-      <div className="bg-base-200 h-full rounded-xl p-5">sub content</div>
+      <div className="bg-base-200 h-full rounded-xl p-5">555555555566666222244445</div>
     </div>
   )
 }
