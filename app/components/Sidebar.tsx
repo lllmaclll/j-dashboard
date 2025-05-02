@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import { AiFillHome, AiOutlineGold } from 'react-icons/ai';
-import { MdOutlineAir, MdOutlineMeetingRoom } from 'react-icons/md';
+import { MdLanguage, MdOutlineAir, MdOutlineMeetingRoom } from 'react-icons/md';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { FaPlug } from "react-icons/fa";
 import ThemeToggle from '@components/ThemeToggle';
@@ -9,6 +9,7 @@ import Hamburger from '@components/Hamburger';
 
 const Sidebar: React.FC = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const location = useLocation();
 
   const toggleCollapse = () => setIsCollapsed(!isCollapsed);
 
@@ -30,11 +31,19 @@ const Sidebar: React.FC = () => {
       sm:h-screen
       ${isCollapsed ? 'h-[50px]' : 'h-screen'}
       sticky top-0
+      z-11
     `}>
       <div>
+        {/* Navbar Mobile */}
         <div className='flex justify-between items-center w-screen h-[50px] sm:hidden'>
           <Hamburger toggleCollapse={toggleCollapse} isCollapsed={isCollapsed} />
-          <ThemeToggle />
+          <div className='flex items-center'>
+            <ThemeToggle />
+            <div className='flex items-center gap-2 me-5'>
+              <MdLanguage size={32} />
+              <span className='font-bold'>TH</span>
+            </div>
+          </div>
         </div>
 
         {/* Logo */}
@@ -46,29 +55,29 @@ const Sidebar: React.FC = () => {
           />
         </div>
 
-        {/* Menu */}
-        <div className={`flex justify-center`}>
-          <ul className={`menu p-0 hidden sm:block`}>
+        {/* Menu Mobile */}
+        <div className={`${isCollapsed ? 'hidden' : 'flex justify-center'} sm:hidden`}>
+          <ul className={`menu p-0 block`}>
             {menuItems.map((item, idx) => (
               <li key={idx} className="mb-2">
-                <Link to={item.path} className="flex items-center gap-2">
-                  {item.icon}
-                  {!isCollapsed && <span className='font-bold'>{item.label}</span>}
+                <Link to={item.path} className={`flex items-center gap-5 ${location.pathname === item.path ? 'menu-active' : ''}`} onClick={() => setIsCollapsed(true)}>
+                  {/* เพิ่มขนาด icon เฉพาะ mobile */}
+                  {React.cloneElement(item.icon, { size: 32 })}
+                  {!isCollapsed && <span className='font-bold text-3xl'>{item.label}</span>}
                 </Link>
               </li>
             ))}
           </ul>
         </div>
 
-        {/* Menu Mobile */}
-        <div className={`${isCollapsed ? 'hidden' : 'flex justify-center'} sm:hidden`}>
-          <ul className={`menu p-0 block`}>
+        {/* Menu */}
+        <div className={`flex justify-center`}>
+          <ul className={`menu p-0 hidden sm:block`}>
             {menuItems.map((item, idx) => (
               <li key={idx} className="mb-2">
-                <Link to={item.path} className={`flex items-center gap-5`}>
-                  {/* เพิ่มขนาด icon เฉพาะ mobile */}
-                  {React.cloneElement(item.icon, { size: 32 })}
-                  {!isCollapsed && <span className='font-bold text-3xl'>{item.label}</span>}
+                <Link to={item.path} className={`flex items-center gap-2 ${location.pathname === item.path ? 'menu-active' : ''}`}>
+                  {item.icon}
+                  {!isCollapsed && <span className='font-bold'>{item.label}</span>}
                 </Link>
               </li>
             ))}
