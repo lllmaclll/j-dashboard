@@ -1,7 +1,32 @@
 import { isRouteErrorResponse, Links, Meta, Outlet, Scripts } from 'react-router'
 import type { Route } from "@react-router/types/app/+types/root.ts";
-import Sidebar from '@app/components/Sidebar.tsx';
+import Sidebar from '@components/Sidebar';
 import '@app/app.css'
+
+export function meta({}: Route.MetaArgs) {
+  return [
+    { title: "CONTROLLER" },
+    // { name: "description", content: "Welcome to J Dashboard!" },
+  ];
+}
+
+// (Flash of Incorrect Theme, FOUC)
+function setInitialThemeScript() {
+  const code = `
+    (function() {
+      try {
+        const theme = localStorage.getItem('theme');
+        if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      } catch (e) {}
+    })();
+  `;
+  return <script dangerouslySetInnerHTML={{ __html: code }} />;
+}
+
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -9,10 +34,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {/* <link rel="icon" type="image/png" href="/public/beach.png" /> */}
+        {setInitialThemeScript()} {/* 👈 ป้องกัน FOUC */}
         <Meta />
         <Links />
-        <title>CONTROLLER</title>
       </head>
       <body>
         {children}

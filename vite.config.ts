@@ -25,7 +25,7 @@ export default defineConfig({
       '@public': path.resolve(__dirname, './public'),
       '@react-router': path.resolve(__dirname, './.react-router'),
       '@components': path.resolve(__dirname, './app/components'),
-      '@pages': path.resolve(__dirname, './app/pages'),
+      '@routes': path.resolve(__dirname, './app/routes'),
       '@assets': path.resolve(__dirname, './app/assets'),
     },
   },

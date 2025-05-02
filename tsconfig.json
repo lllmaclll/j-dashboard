@@ -5,7 +5,7 @@
       // "@app/*": ["app/*"] // @src/* คือ prefix ที่ตั้งเอง เช่น @src/components/Nav | src/* คือ path จริง ๆ ที่ให้ไปหาไฟล์
       "@app/*": ["./app/*"],
       "@components/*": ["./app/components/*"],
-      "@pages/*": ["./app/pages/*"],
+      "@routes/*": ["app/routes/*"],
       "@assets/*": ["./app/assets/*"],
       "@public/*": ["./public/*"],
       "@react-router/*": ["./.react-router/*"]
