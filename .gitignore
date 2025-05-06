@@ -30,6 +30,8 @@ build/
 # เก็บ API key, token ฯลฯ → ห้าม push ขึ้น git
 .env.*.local
 # ตัวแปรเฉพาะเครื่อง dev
+.env*
+# หากจะใช้หลาย environment:
 
 # System
 .DS_Store

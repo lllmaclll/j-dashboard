@@ -11,7 +11,7 @@ const ThemeToggle: React.FC = () => {
       document.documentElement.setAttribute('data-theme', 'dracula'); // คือการเข้าถึง <html> tag โดยตรง (เพราะ document.documentElement = <html>)
       localStorage.setItem('theme', 'dark');
     } else {
-      document.documentElement.setAttribute('data-theme', 'light');
+      document.documentElement.setAttribute('data-theme', 'emerald');
       localStorage.setItem('theme', 'light');
     }
   };
@@ -24,7 +24,7 @@ const ThemeToggle: React.FC = () => {
       document.documentElement.setAttribute('data-theme', 'dracula');
     } else {
       setIsDark(false);
-      document.documentElement.setAttribute('data-theme', 'light');
+      document.documentElement.setAttribute('data-theme', 'emerald');
     }
   }, []);
 
