@@ -1,18 +1,22 @@
 import CardHome from "@components/CardHome"
-// import CardAirQualityOutdoor from "@components/CardAirQualityOutdoor"
 import CardAirQualityIndoor from "@components/CardAirQualityIndoor"
 import CardGold from "@components/CardGold"
 import CardPlug from "@components/CardPlug"
 
+const routeComponentMap: Record<string, React.ReactNode> = {
+  '/': <CardHome />,
+  '/air-room': <CardAirQualityIndoor />,
+  '/gold': <CardGold />,
+  '/plug': <CardPlug />
+}
+
 const CardRenderer = ({ pathname }: { pathname: string }) => {
-    switch (pathname) {
-      case '/': return <CardHome />
-      // case '/air': return <CardAirQualityOutdoor />
-      case '/air-room': return <CardAirQualityIndoor />
-      case '/gold': return <CardGold />
-      case '/plug': return <CardPlug />
-      default: return <div>Page not found</div>
-    }
+  const component = routeComponentMap[pathname];
+  if (!component) {
+    throw new Error(`No component found for path: ${pathname}`);
   }
-  export default CardRenderer
+  return component;
+};
+
+export default CardRenderer
   

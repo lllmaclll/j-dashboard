@@ -55,14 +55,21 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   }
 
   return (
-    <main className="pt-16 p-4 container mx-auto">
-      <h1>{message}</h1>
-      <p>{details}</p>
-      {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
-          <code>{stack}</code>
-        </pre>
-      )}
+    <main className="h-screen flex flex-col justify-center items-center bg-gradient-to-r from-gray-800 to-gray-900 p-4">
+      <div className="w-full max-w-3xl p-8 bg-gray-900 rounded-xl shadow-2xl transform transition-all hover:scale-105 hover:shadow-2xl space-y-6 text-white">
+        <h1 className="text-6xl font-extrabold text-center drop-shadow-md text-red-600">{message}</h1>
+        <p className="text-lg text-center">{details}</p>
+        
+        {stack && (
+          <div className="mt-6 p-4 bg-gray-700 text-white rounded-md overflow-x-auto shadow-inner">
+            <pre className="whitespace-pre-wrap">{stack}</pre>
+          </div>
+        )}
+        
+        <div className="mt-8 flex justify-center space-x-4">
+          <a href="/" className="btn btn-primary text-gray-900 px-6 py-3 rounded-md hover:bg-gray-800 transition-colors font-bold">Go Home</a>
+        </div>
+      </div>
     </main>
   );
 }

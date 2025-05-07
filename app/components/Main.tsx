@@ -1,5 +1,5 @@
 // Library
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useLocation } from 'react-router'
 import { MdLanguage } from "react-icons/md";
 
@@ -13,12 +13,16 @@ import CardAirQualityOutdoor from './CardAirQualityOutdoor';
 import ErrorMessage from './ErrorMessage';
 import { SkeletonCard } from './SkeletonCard';
 import NoData from './NoData';
+import { AQIResponse } from '@app/types/aqi';
+import getPageTitle from '@app/utils/getPageTitle';
 
 const Main: React.FC = () => {
+  const location = useLocation()
+  const title = getPageTitle(location.pathname)
+
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedOption, setSelectedOption] = useState('all');
   const [showSkeleton, setShowSkeleton] = useState(false)
-  const location = useLocation()
 
   const { stations, loading: stationsLoading, error: stationsError } = useAQIStations()
   const { aqiData, loading: dataLoading, error: dataError } = useAQIByStationID(selectedOption)
@@ -48,30 +52,57 @@ const Main: React.FC = () => {
     }
   }
 
-  // get page title based on the current route
-  const getPageTitle = (pathname: string) => {
-    const routeMap: Record<string, string> = {
-      '/': 'Home',
-      '/air': 'Air',
-      '/air-room': 'Air Room',
-      '/gold': 'Gold',
-      '/plug': 'Plug',
+  const dropdownOptions = useMemo(() => {
+    return stations && Array.isArray(stations.stations)
+      ? [
+          { label: 'สถานีทั้งหมด', value: 'all' },
+          ...stations.stations.map((station) => ({
+            label: station.nameTH || 'Unnamed Station',
+            value: station.stationID,
+          }))
+        ]
+      : [];
+  }, [stations]);
+
+// Type guard เพื่อตรวจสอบว่า aqiData เป็น AQIResponse จริง
+const isAQIResponse = (data: any): data is AQIResponse => {
+  return data && typeof data === 'object' && 'stationID' in data;
+};
+
+const renderAirContent = () => {
+  if (selectedOption === 'all') {
+    if (stationsLoading || showSkeleton) {
+      return <SkeletonCard />;
     }
 
-    return routeMap[pathname] || 'Main'
+    if (stationsError) {
+      return <ErrorMessage message="ไม่สามารถโหลดข้อมูลสถานีได้" />;
+    }
+
+    if (!stations?.stations?.length) {
+      return <NoData />;
+    }
+
+    return stations.stations.map((station) => (
+      <CardAirQualityOutdoor key={station.stationID} data={station} />
+    ));
   }
 
-  const title = getPageTitle(location.pathname)
+  // กรณี selectedOption !== 'all'
+  if (dataLoading) {
+    return <SkeletonCard />;
+  }
 
-  const dropdownOptions = stations && Array.isArray(stations.stations)
-  ? [
-      { label: 'สถานีทั้งหมด', value: 'all' },
-      ...stations.stations.map((station) => ({
-        label: station.nameTH || 'Unnamed Station',
-        value: station.stationID,
-      }))
-    ]
-  : [];
+  if (dataError) {
+    return <ErrorMessage message="ไม่สามารถโหลดข้อมูลคุณภาพอากาศได้" />;
+  }
+
+  if (!isAQIResponse(aqiData)) {
+    return <NoData />;
+  }
+
+  return <CardAirQualityOutdoor data={aqiData} />;
+};
 
   return (
     <div className="h-screen p-5 flex flex-col">
@@ -116,33 +147,7 @@ const Main: React.FC = () => {
       </div>
 
       <div className="bg-base-200 h-full rounded-xl p-5 overflow-auto">
-        {location.pathname === '/air' ? (
-          selectedOption === 'all' ? (
-            stationsLoading || showSkeleton ? (
-              <SkeletonCard />
-            ) : stationsError ? (
-              <ErrorMessage message="ไม่สามารถโหลดข้อมูลสถานีได้" />
-            ) : !stations?.stations || stations.stations.length === 0 ? (
-              <NoData />
-            ) : (
-              stations.stations.map((station) => (
-                <CardAirQualityOutdoor key={station.stationID} data={station} />
-              ))
-            )
-          ) : dataLoading ? (
-            <SkeletonCard />
-          ) : dataError ? (
-            <ErrorMessage message="ไม่สามารถโหลดข้อมูลคุณภาพอากาศได้" />
-          ) : !aqiData || Array.isArray(aqiData) ? (
-            <NoData />
-          ) : (
-            aqiData && !Array.isArray(aqiData) && 'stationID' in aqiData && (
-              <CardAirQualityOutdoor data={aqiData} />
-            )
-          )
-        ) : (
-          <CardRenderer pathname={location.pathname} />
-        )}
+        {location.pathname === '/air' ? renderAirContent() : <CardRenderer pathname={location.pathname} />}
       </div>
     </div>
   )
