@@ -2,24 +2,54 @@ import React from 'react'
 
 const CardHome: React.FC = () => {
   return (
-    <div className='glass w-full rounded-xl p-5 flex flex-col md:flex-row gap-5 mb-5 z-0'>
-      <div
-        className="hero min-h-screen"
-        style={{
-          backgroundImage:
-            "url(https://img.daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.webp)",
-        }}
-      >
-        <div className="hero-overlay"></div>
-        <div className="hero-content text-neutral-content text-center">
-          <div className="max-w-md">
-            <h1 className="mb-5 text-5xl font-bold">Hello there</h1>
-            <p className="mb-5">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
-              quasi. In deleniti eaque aut repudiandae et a id nisi.
-            </p>
-            <button className="btn btn-primary">Get Started</button>
+    <div className='glass w-full rounded-xl p-5 flex flex-col md:flex-col gap-5 mb-5 z-0'>
+      <figure className="diff aspect-16/9" tabIndex={0}>
+        <div className="diff-item-1" role="img" tabIndex={0}>
+          <div className="bg-primary text-primary-content grid place-content-center text-9xl font-black">
+            J DASHBOARD
           </div>
+        </div>
+        <div className="diff-item-2" role="img">
+          <div className="bg-base-200 grid place-content-center text-9xl font-black">J DASHBOARD</div>
+        </div>
+        <div className="diff-resizer"></div>
+      </figure>
+
+      <div className="carousel rounded-box">
+        <div className="carousel-item">
+          <img
+            src="https://img.daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.webp"
+            alt="Burger" />
+        </div>
+        <div className="carousel-item">
+          <img
+            src="https://img.daisyui.com/images/stock/photo-1565098772267-60af42b81ef2.webp"
+            alt="Burger" />
+        </div>
+        <div className="carousel-item">
+          <img
+            src="https://img.daisyui.com/images/stock/photo-1572635148818-ef6fd45eb394.webp"
+            alt="Burger" />
+        </div>
+        <div className="carousel-item">
+          <img
+            src="https://img.daisyui.com/images/stock/photo-1494253109108-2e30c049369b.webp"
+            alt="Burger" />
+        </div>
+        <div className="carousel-item">
+          <img
+            src="https://img.daisyui.com/images/stock/photo-1550258987-190a2d41a8ba.webp"
+            alt="Burger" />
+        </div>
+        <div className="carousel-item">
+          <img
+            src="https://img.daisyui.com/images/stock/photo-1559181567-c3190ca9959b.webp"
+            alt="Burger" />
+        </div>
+        <div className="carousel-item">
+          <img
+            src="https://img.daisyui.com/images/stock/photo-1601004890684-d8cbf643f5f2.webp"
+            alt="Burger" />
         </div>
       </div>
     </div>

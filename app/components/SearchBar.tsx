@@ -6,12 +6,11 @@ interface SearchBarProps {
   searchTerm: string
   onSearchTermChange: (term: string) => void
   onClear: () => void
-  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ searchTerm, onSearchTermChange, onClear, onSubmit }) => {
+const SearchBar: React.FC<SearchBarProps> = ({ searchTerm, onSearchTermChange, onClear }) => {
   return (
-    <form onSubmit={onSubmit} className="relative w-full sm:max-w-xs">
+    <form className="relative w-full sm:max-w-xs">
       <div className="relative flex items-center">
         <input
           type="text"

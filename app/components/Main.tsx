@@ -1,5 +1,5 @@
 // Library
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useLocation } from 'react-router'
 import { MdLanguage } from "react-icons/md";
 
@@ -23,6 +23,7 @@ const Main: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedOption, setSelectedOption] = useState('all');
   const [showSkeleton, setShowSkeleton] = useState(false)
+  const [filteredStations, setFilteredStations] = useState<AQIResponse[] | null>(null)
 
   const { stations, loading: stationsLoading, error: stationsError } = useAQIStations()
   const { aqiData, loading: dataLoading, error: dataError } = useAQIByStationID(selectedOption)
@@ -30,28 +31,28 @@ const Main: React.FC = () => {
   // searchbar handle clear filed
   const handleClear = () => {
     setSearchTerm('')
-  }
+    setFilteredStations(null)
+    setSelectedOption('all')
 
-  // searchbar handle enter
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    if (searchTerm.trim() !== '') {
-      console.log('Searching for:', searchTerm)
-    }
+    setShowSkeleton(true)
+    // ปิด skeleton หลังจาก delay สั้น ๆ (simulate loading)
+    setTimeout(() => setShowSkeleton(false), 100)
   }
 
   // select option handler
   const handleDropdownChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value
     setSelectedOption(value)
-  
+    setSearchTerm('')
+
     if (value === 'all') {
       setShowSkeleton(true)
       // ปิด skeleton หลังจาก delay สั้น ๆ (simulate loading)
-      setTimeout(() => setShowSkeleton(false), 500) // 0.5 วินาที
+      setTimeout(() => setShowSkeleton(false), 100) // 0.5 วินาที
     }
   }
 
+  // สร้าง options สำหรับ SelectDropdown โดยใช้ useMemo เพื่อไม่ให้สร้างใหม่ทุกครั้ง
   const dropdownOptions = useMemo(() => {
     return stations && Array.isArray(stations.stations)
       ? [
@@ -64,45 +65,76 @@ const Main: React.FC = () => {
       : [];
   }, [stations]);
 
-// Type guard เพื่อตรวจสอบว่า aqiData เป็น AQIResponse จริง
-const isAQIResponse = (data: any): data is AQIResponse => {
-  return data && typeof data === 'object' && 'stationID' in data;
-};
+  // Type guard เพื่อตรวจสอบว่า aqiData เป็น AQIResponse จริง
+  const isAQIResponse = (data: any): data is AQIResponse => {
+    return data && typeof data === 'object' && 'stationID' in data;
+  };
 
-const renderAirContent = () => {
-  if (selectedOption === 'all') {
-    if (stationsLoading || showSkeleton) {
+  const renderAirQualityCards = () => {
+    if (selectedOption === 'all') {
+      if (stationsLoading || showSkeleton) {
+        return <SkeletonCard />;
+      }
+
+      if (stationsError) {
+        return <ErrorMessage message="ไม่สามารถโหลดข้อมูลสถานีได้" />;
+      }
+
+      if (!stations?.stations?.length) {
+        return <NoData />;
+      }
+
+      const displayList = filteredStations ?? stations.stations
+
+      if (!displayList.length) return <NoData />
+
+      return displayList.map((station) => (
+        <CardAirQualityOutdoor key={station.stationID} data={station} />
+      ))
+    }
+
+    // กรณี selectedOption !== 'all'
+    if (dataLoading) {
       return <SkeletonCard />;
     }
 
-    if (stationsError) {
-      return <ErrorMessage message="ไม่สามารถโหลดข้อมูลสถานีได้" />;
+    if (dataError) {
+      return <ErrorMessage message="ไม่สามารถโหลดข้อมูลคุณภาพอากาศได้" />;
     }
 
-    if (!stations?.stations?.length) {
+    if (!isAQIResponse(aqiData)) {
       return <NoData />;
     }
 
-    return stations.stations.map((station) => (
-      <CardAirQualityOutdoor key={station.stationID} data={station} />
-    ));
-  }
+    return <CardAirQualityOutdoor data={aqiData} />;
+  };
 
-  // กรณี selectedOption !== 'all'
-  if (dataLoading) {
-    return <SkeletonCard />;
-  }
+  // searchbar handle real-time filtering
+  useEffect(() => {
+    if (!searchTerm.trim()) {
+      setFilteredStations(null)
+      return
+    }
 
-  if (dataError) {
-    return <ErrorMessage message="ไม่สามารถโหลดข้อมูลคุณภาพอากาศได้" />;
-  }
+    if (!stations?.stations?.length) return
 
-  if (!isAQIResponse(aqiData)) {
-    return <NoData />;
-  }
+    const term = searchTerm.trim().toLowerCase()
 
-  return <CardAirQualityOutdoor data={aqiData} />;
-};
+    const matched = stations.stations.filter((station) =>
+      [
+        station.nameTH,
+        station.nameEN,
+        station.stationID,
+        station.areaTH,
+        station.areaEN
+      ]
+        .filter(Boolean)
+        .some((field) => field.toLowerCase().includes(term))
+    )
+
+    setFilteredStations(matched.length > 0 ? matched : [])
+    setSelectedOption('all') // force "all" view when searching
+  }, [searchTerm, stations])
 
   return (
     <div className="h-screen p-5 flex flex-col">
@@ -133,7 +165,6 @@ const renderAirContent = () => {
                 searchTerm={searchTerm}
                 onSearchTermChange={setSearchTerm}
                 onClear={handleClear}
-                onSubmit={handleSubmit}
               />
             </>
           )}
@@ -147,7 +178,7 @@ const renderAirContent = () => {
       </div>
 
       <div className="bg-base-200 h-full rounded-xl p-5 overflow-auto">
-        {location.pathname === '/air' ? renderAirContent() : <CardRenderer pathname={location.pathname} />}
+        {location.pathname === '/air' ? renderAirQualityCards() : <CardRenderer pathname={location.pathname} />}
       </div>
     </div>
   )

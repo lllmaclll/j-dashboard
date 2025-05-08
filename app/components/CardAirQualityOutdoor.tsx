@@ -1,12 +1,12 @@
 import React from 'react'
 import { AQIResponse } from '@app/types/aqi'
 import { getAQIData } from '@app/utils/getAQIData'
-import ErrorMessage from './ErrorMessage'
+import NoData from './NoData'
 
 const CardAirQualityOutdoor: React.FC<{ data: AQIResponse }> = ({ data }) => {
 
   if (!data?.AQILast?.AQI?.aqi) {
-    return <ErrorMessage message="ไม่มีข้อมูล AQI สำหรับสถานีนี้" />
+    return <NoData />
   }
 
   const aqiValue = data.AQILast.AQI.aqi ? parseFloat(data.AQILast.AQI.aqi) : 0;
