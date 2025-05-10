@@ -6,19 +6,25 @@ import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { FaPlug } from "react-icons/fa";
 import ThemeToggle from '@components/ThemeToggle';
 import Hamburger from '@components/Hamburger';
+import { useLanguage } from '@app/context/LanguageContext';
 
 const Sidebar: React.FC = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const location = useLocation();
+  const { translations, language, setLanguage } = useLanguage();
+  
+  const toggleLanguage = () => {
+    setLanguage(language === 'en' ? 'th' : 'en');
+  };
 
   const toggleCollapse = () => setIsCollapsed(!isCollapsed);
 
   const menuItems = [
-    { icon: <AiFillHome size={24} />, label: 'Home', path: '/' },
-    { icon: <MdOutlineAir size={24} />, label: 'Air', path: '/air' },
-    { icon: <MdOutlineMeetingRoom size={24} />, label: 'Air Room', path: '/air-room' },
-    { icon: <AiOutlineGold size={24} />, label: 'Gold', path: '/gold' },
-    { icon: <FaPlug size={24} />, label: 'Plug', path: '/plug' },
+    { icon: <AiFillHome size={24} />, label: translations.pages.home, path: '/' },
+    { icon: <MdOutlineAir size={24} />, label: translations.pages.air, path: '/air' },
+    { icon: <MdOutlineMeetingRoom size={24} />, label: translations.pages.airRoom, path: '/air-room' },
+    { icon: <AiOutlineGold size={24} />, label: translations.pages.gold, path: '/gold' },
+    { icon: <FaPlug size={24} />, label: translations.pages.plug, path: '/plug' },
   ]
 
   return (
@@ -40,8 +46,8 @@ const Sidebar: React.FC = () => {
           <div className='flex items-center'>
             <ThemeToggle />
             <div className='flex items-center gap-2 me-5'>
-              <MdLanguage size={32} />
-              <span className='font-bold'>TH</span>
+              <MdLanguage className='cursor-pointer btn btn-circle' size={32} onClick={toggleLanguage} />
+              <span className='font-bold'>{language === 'en' ? 'EN' : 'TH'}</span>
             </div>
           </div>
         </div>

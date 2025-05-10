@@ -1,7 +1,7 @@
-import CardHome from "@components/CardHome"
-import CardAirQualityIndoor from "@components/CardAirQualityIndoor"
-import CardGold from "@components/CardGold"
-import CardPlug from "@components/CardPlug"
+import CardAirQualityIndoor from "./CardAirQualityIndoor";
+import CardGold from "./CardGold";
+import CardHome from "./CardHome";
+import CardPlug from "./CardPlug";
 
 const routeComponentMap: Record<string, React.ReactNode> = {
   '/': <CardHome />,

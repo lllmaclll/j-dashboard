@@ -6,4 +6,5 @@ export default [
   route('air-room', 'routes/AirRoomPage.tsx'),
   route('gold', 'routes/GoldPage.tsx'),
   route('plug', 'routes/PlugPage.tsx'),
+  // route('*', 'routes/NotFoundPage.tsx'),
 ] satisfies RouteConfig;

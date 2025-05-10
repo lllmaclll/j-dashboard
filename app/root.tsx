@@ -1,12 +1,13 @@
 import { isRouteErrorResponse, Links, Meta, Outlet, Scripts } from 'react-router'
 import type { Route } from "@react-router/types/app/+types/root.ts";
-import Sidebar from '@components/Sidebar';
+import Sidebar from '@app/components/layouts/Sidebar';
 import '@app/app.css'
+import { LanguageProvider } from './context/LanguageContext';
 
 export function meta({}: Route.MetaArgs) {
   return [
     { title: "CONTROLLER" },
-    // { name: "description", content: "Welcome to J Dashboard!" },
+    { name: "description", content: "Welcome to J Dashboard!" },
   ];
 }
 
@@ -29,12 +30,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return (
-    <main className='flex sm:flex-row flex-col'>
-      <Sidebar />
-      <div className="flex-1">
-        <Outlet />
-      </div>
-    </main>
+    <LanguageProvider>
+      <main className='flex sm:flex-row flex-col'>
+        <Sidebar />
+        <div className="flex-1">
+          <Outlet />
+        </div>
+      </main>
+    </LanguageProvider>
   )
 }
 
