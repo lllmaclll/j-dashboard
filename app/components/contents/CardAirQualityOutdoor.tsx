@@ -1,15 +1,10 @@
 import React from 'react'
 import { AQIResponse } from '@app/types/aqi'
 import { getAQIData } from '@app/utils/getAQIData'
-import NoData from '../alerts/NoData'
 import { useLanguage } from '@app/context/LanguageContext'
 
 const CardAirQualityOutdoor: React.FC<{ data: AQIResponse }> = ({ data }) => {
   const { translations, language } = useLanguage();
-
-  if (!data?.AQILast?.AQI?.aqi) {
-    return <NoData />
-  }
 
   const aqiValue = data.AQILast.AQI.aqi ? parseFloat(data.AQILast.AQI.aqi) : 0;
   const aqiData = getAQIData(aqiValue);

@@ -9,7 +9,7 @@
       "@assets/*": ["./app/assets/*"],
       "@public/*": ["./public/*"],
       "@react-router/*": ["./.react-router/*"]
-    }
+    },
   },
   "files": [],
   "references": [

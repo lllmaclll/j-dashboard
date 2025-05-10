@@ -6,17 +6,11 @@ import { MdLanguage } from "react-icons/md";
 // Components
 import SelectDropdown from '@components/SelectDropdown'
 import SearchBar from '@components/SearchBar'
-import { useAQIByStationID } from '@app/hooks/useAQIByStationID';
 import { useAQIStations } from '@app/hooks/useAQIStations';
-import ErrorMessage from '../alerts/ErrorMessage';
-import { SkeletonCard } from '../SkeletonCard';
-import NoData from '../alerts/NoData';
 import { AQIResponse } from '@app/types/aqi';
 import getPageTitle from '@app/utils/getPageTitle';
 import CardRenderer from '../contents/CardRenderer';
-import CardAirQualityOutdoor from '../contents/CardAirQualityOutdoor';
 import { useLanguage } from '@app/context/LanguageContext';
-
 
 const Main: React.FC = () => {
   const location = useLocation()
@@ -26,8 +20,7 @@ const Main: React.FC = () => {
   const [showSkeleton, setShowSkeleton] = useState(false)
   const [filteredStations, setFilteredStations] = useState<AQIResponse[] | null>(null)
 
-  const { stations, loading: stationsLoading, error: stationsError } = useAQIStations()
-  const { aqiData, loading: dataLoading, error: dataError } = useAQIByStationID(selectedOption)
+  const { stations, loading: stationsLoading } = useAQIStations()
 
   const { translations, language, setLanguage } = useLanguage();
     
@@ -73,50 +66,6 @@ const Main: React.FC = () => {
         ]
       : [];
   }, [stations, language]);
-
-  // Type guard เพื่อตรวจสอบว่า aqiData เป็น AQIResponse จริง
-  const isAQIResponse = (data: any): data is AQIResponse => {
-    return data && typeof data === 'object' && 'stationID' in data;
-  };
-
-  const renderAirQualityCards = () => {
-    if (selectedOption === 'all') {
-      if (stationsLoading || showSkeleton) {
-        return <SkeletonCard />;
-      }
-
-      if (stationsError) {
-        return <ErrorMessage message="ไม่สามารถโหลดข้อมูลสถานีได้" />;
-      }
-
-      if (!stations?.stations?.length) {
-        return <NoData />;
-      }
-
-      const displayList = filteredStations ?? stations.stations
-
-      if (!displayList.length) return <NoData />
-
-      return displayList.map((station) => (
-        <CardAirQualityOutdoor key={station.stationID} data={station} />
-      ))
-    }
-
-    // กรณี selectedOption !== 'all'
-    if (dataLoading) {
-      return <SkeletonCard />;
-    }
-
-    if (dataError) {
-      return <ErrorMessage message="ไม่สามารถโหลดข้อมูลคุณภาพอากาศได้" />;
-    }
-
-    if (!isAQIResponse(aqiData)) {
-      return <NoData />;
-    }
-
-    return <CardAirQualityOutdoor data={aqiData} />;
-  };
 
   // searchbar handle real-time filtering
   useEffect(() => {
@@ -185,7 +134,12 @@ const Main: React.FC = () => {
       </div>
 
       <div className="bg-base-200 h-full rounded-xl p-5 overflow-auto">
-        {location.pathname === '/air' ? renderAirQualityCards() : <CardRenderer pathname={location.pathname} />}
+        <CardRenderer
+          pathname={location.pathname}
+          {...(location.pathname === '/air'
+            ? { selectedOption, showSkeleton, filteredStations }
+            : {})}
+        />
       </div>
     </div>
   )

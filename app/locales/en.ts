@@ -36,5 +36,7 @@ export const en = {
     down: "Decreased",
     noChange: "No change"
   },
-  thaiCurrency: "THB"
+  thaiCurrency: "THB",
+  temperature: "Temperature",
+  humidity: "Humidity"
 };

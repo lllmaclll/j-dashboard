@@ -36,5 +36,7 @@ export const th = {
     down: "ลดลง",
     noChange: "ไม่เปลี่ยนแปลง"
   },
-  thaiCurrency: "บาท"
+  thaiCurrency: "บาท",
+  temperature: "อุณหภูมิ",
+  humidity: "ความชื้น"
 };
