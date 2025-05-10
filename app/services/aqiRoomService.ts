@@ -1,10 +1,11 @@
 import axios from 'axios';
 import { AQIROOM_API } from "@app/config/api";
-import { AqiroomResponse } from "@app/types/aqiroom";
+import { AqiRoomResponse } from '@app/types/aqiroom';
 
-export const fetchGoldPrice = async (): Promise<AqiroomResponse['response']> => {
+
+export const fetchAqiRoom = async (): Promise<AqiRoomResponse['response']> => {
   try {
-    const res = await axios.get<AqiroomResponse>(AQIROOM_API);
+    const res = await axios.get<AqiRoomResponse>(AQIROOM_API);
 
     // ตรวจสอบว่ามีข้อมูล response หรือไม่
     if (!res?.data?.response?.TempValue) {

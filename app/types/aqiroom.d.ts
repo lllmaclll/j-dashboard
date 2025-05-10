@@ -1,16 +1,15 @@
-export interface Aqiroom {
+export interface AqiRoom {
     aqiroom: {
-      AQIStation: string;
-      TempValue: string;
-      HumValue: string;
+      AQIStation: number;
+      TempValue: number;
+      HumValue: number;
     };
   }
   
-  export interface AqiroomResponse {
-    status: string;
+  export interface AqiRoomResponse {
     response: {
-      AQIStation: string;
-      TempValue: string;
-      HumValue: string;
+      AQIStation: number;
+      TempValue: number;
+      HumValue: number;
     };
   }
