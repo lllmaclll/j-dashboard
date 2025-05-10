@@ -1,4 +1,4 @@
-import Main from "@app/components/Main";
+import Main from "@app/components/layouts/Main";
 
 function PlugPage() {
   return <Main />;

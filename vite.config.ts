@@ -17,7 +17,25 @@ export default defineConfig({
     // react(),
     reactRouter(),
     tailwindcss(),
+    {
+      name: 'fallback-for-well-known',
+      configureServer(server) {
+        server.middlewares.use((req, res, next) => {
+          if (req.url?.startsWith('/.well-known')) {
+            res.statusCode = 204; // No Content
+            res.end();
+          } else {
+            next();
+          }
+        });
+      },
+    },
   ],
+    server: {
+    fs: {
+      allow: ['.'],
+    },
+  },
   resolve: { // resolve = เป็นการตั้งค่าที่บอก Vite ว่าเวลา "resolve" (ค้นหา) ไฟล์หรือโมดูล ให้ใช้กฎพิเศษด้วยได้
     alias: { // alias = คือการ "ตั้งชื่อเล่น" (shortcuts) ให้ path ในโปรเจกต์เรา เวลา import จะได้ไม่ต้องพิมพ์ path ยาว ๆ แบบ ../../../ ที่มันน่ารำคาญ
       // '@app': path.resolve(__dirname, './app'), // '@src' คือ "ชื่อย่อ" ของ path ที่เราตั้งเอง เวลา import ไฟล์ | // './src' คือ "ตำแหน่งจริง" บน disk ที่จะชี้ไป | // ตัว path alias นี้ทำให้เวลา import ไฟล์ ไม่ต้องเขียน ../../../ ย้อน path อีก | // Vite จะใช้ค่า alias นี้ map หาไฟล์จริงตอน dev และ build

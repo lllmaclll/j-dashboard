@@ -6,19 +6,20 @@ import { MdLanguage } from "react-icons/md";
 // Components
 import SelectDropdown from '@components/SelectDropdown'
 import SearchBar from '@components/SearchBar'
-import CardRenderer from '@components/CardRenderer';
 import { useAQIByStationID } from '@app/hooks/useAQIByStationID';
 import { useAQIStations } from '@app/hooks/useAQIStations';
-import CardAirQualityOutdoor from './CardAirQualityOutdoor';
-import ErrorMessage from './ErrorMessage';
-import { SkeletonCard } from './SkeletonCard';
-import NoData from './NoData';
+import ErrorMessage from '../alerts/ErrorMessage';
+import { SkeletonCard } from '../SkeletonCard';
+import NoData from '../alerts/NoData';
 import { AQIResponse } from '@app/types/aqi';
 import getPageTitle from '@app/utils/getPageTitle';
+import CardRenderer from '../contents/CardRenderer';
+import CardAirQualityOutdoor from '../contents/CardAirQualityOutdoor';
+import { useLanguage } from '@app/context/LanguageContext';
+
 
 const Main: React.FC = () => {
   const location = useLocation()
-  const title = getPageTitle(location.pathname)
 
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedOption, setSelectedOption] = useState('all');
@@ -27,6 +28,14 @@ const Main: React.FC = () => {
 
   const { stations, loading: stationsLoading, error: stationsError } = useAQIStations()
   const { aqiData, loading: dataLoading, error: dataError } = useAQIByStationID(selectedOption)
+
+  const { translations, language, setLanguage } = useLanguage();
+    
+  const toggleLanguage = () => {
+    setLanguage(language === 'en' ? 'th' : 'en');
+  };
+
+  const title = getPageTitle(location.pathname);
 
   // searchbar handle clear filed
   const handleClear = () => {
@@ -56,14 +65,14 @@ const Main: React.FC = () => {
   const dropdownOptions = useMemo(() => {
     return stations && Array.isArray(stations.stations)
       ? [
-          { label: 'สถานีทั้งหมด', value: 'all' },
+          { label: translations.dropdown.allStations, value: 'all' },
           ...stations.stations.map((station) => ({
-            label: station.nameTH || 'Unnamed Station',
+            label: language === 'th' ? station.nameTH || translations.dropdown.unnamed : station.nameEN || translations.dropdown.unnamed,
             value: station.stationID,
           }))
         ]
       : [];
-  }, [stations]);
+  }, [stations, language]);
 
   // Type guard เพื่อตรวจสอบว่า aqiData เป็น AQIResponse จริง
   const isAQIResponse = (data: any): data is AQIResponse => {
@@ -139,7 +148,7 @@ const Main: React.FC = () => {
   return (
     <div className="h-screen p-5 flex flex-col">
       <div className="flex flex-col sm:flex-row items-center mb-5">
-        <div className="text-3xl font-bold mb-5 sm:mb-0 whitespace-nowrap">{title}</div>
+        <div className="text-3xl font-bold mb-5 sm:mb-0 sm:me-3 whitespace-nowrap">{title}</div>
 
         <div className="flex flex-col sm:flex-row justify-end w-full gap-5 sm:ms-5 lg:ms-0">
           {location.pathname === '/air' && (
@@ -170,9 +179,9 @@ const Main: React.FC = () => {
           )}
 
           {/* Language */}
-          <div className="hidden sm:flex items-center gap-2">
-            <MdLanguage size={32} />
-            <span className="font-bold">TH</span>
+          <div className="hidden sm:flex items-center gap-2 bg-base-200 rounded-4xl ">
+            <MdLanguage className='cursor-pointer btn btn-circle' size={32} onClick={toggleLanguage} />
+            <span className="font-bold me-2">{language === 'en' ? 'EN' : 'TH'}</span>
           </div>
         </div>
       </div>
