@@ -154,9 +154,7 @@ const Main: React.FC = () => {
           {location.pathname === '/air' && (
             <>
               {/* Select Dropdown */}
-              {stationsError ? (
-                <ErrorMessage message="ไม่สามารถโหลดข้อมูลสถานีได้" />
-              ) : stationsLoading ? (
+              {stationsLoading ? (
                 <div className="w-full sm:max-w-xs">
                   <div className="skeleton h-10 w-full rounded-md"></div>
                 </div>
