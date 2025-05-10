@@ -1,17 +1,23 @@
 import { fetchGoldPrice } from '@app/services/goldService'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { GoldResponse } from "@app/types/gold";
 
 export const useGoldPrice = () => {
   const [data, setData] = useState<GoldResponse['response'] | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const prevDataRef = useRef<GoldResponse['response'] | null>(null) // ใช้ useRef เพื่อเก็บข้อมูลก่อนหน้า
 
   useEffect(() => {
     const fetchGold = async () => {
       try {
         const json = await fetchGoldPrice()
-        setData(json)
+        
+        // เช็คว่า json ที่ได้รับใหม่แตกต่างจากข้อมูลเก่าหรือไม่
+        if (JSON.stringify(json) !== JSON.stringify(prevDataRef.current)) {
+          setData(json)
+          prevDataRef.current = json // เก็บข้อมูลใหม่
+        }
       } catch (err: unknown) {
         console.error('Gold API error:', err)
         setError(err instanceof Error ? err.message : 'An unknown error occurred')
