@@ -1,7 +1,7 @@
 export const en = {
   dropdown: {
     allStations: "All Stations",
-    unnamed: "Unnamed Station"
+    unnamed: "Unnamed Station",
   },
   pages: {
     home: "Home",
@@ -14,7 +14,7 @@ export const en = {
     pm: "ug/m³",
     co: "ppm",
     avg24: "Avg 24Hr",
-    avg8: "Avg 8Hr"
+    avg8: "Avg 8Hr",
   },
   airAltImage: "Image showing air quality levels",
   airLevelAriaLabel: "Air quality level",
@@ -23,7 +23,7 @@ export const en = {
     good: "Good",
     moderate: "Moderate",
     unhealthy: "Unhealthy",
-    veryUnhealthy: "Very Unhealthy"
+    veryUnhealthy: "Very Unhealthy",
   },
   gold: {
     bar: "Gold Bar 96.5%",
@@ -34,9 +34,9 @@ export const en = {
     changeToday: "Gold price change today",
     up: "Increased",
     down: "Decreased",
-    noChange: "No change"
+    noChange: "No change",
   },
   thaiCurrency: "THB",
   temperature: "Temperature",
-  humidity: "Humidity"
+  humidity: "Humidity",
 };

@@ -1,10 +1,19 @@
+// Library
 import React from 'react'
-import { getAQIData } from '@app/utils/getAQIData';
-import { useLanguage } from '@app/context/LanguageContext';
-import { useAqiRoom } from '@app/hooks/useAqiRoom';
-import { SkeletonCard } from '../SkeletonCard';
-import ErrorMessage from '../alerts/ErrorMessage';
-import NoData from '../alerts/NoData';
+
+// Context
+import { useLanguage } from '@context/LanguageContext';
+
+// Hooks
+import { useAqiRoom } from '@hooks/useAqiRoom';
+
+// Utils
+import { getAQIData } from '@utils/getAQIData';
+
+// Components
+import { SkeletonCard } from '@components/SkeletonCard';
+import ErrorMessage from '@components/alerts/ErrorMessage';
+import NoData from '@components/alerts/NoData';
 
 const CardAirQualityIndoor: React.FC = () => {
   const { translations } = useLanguage();
@@ -14,11 +23,11 @@ const CardAirQualityIndoor: React.FC = () => {
   if (loading) return <SkeletonCard />;
   if (error) return <ErrorMessage message="ไม่สามารถโหลดข้อมูล aqi ภายในห้องได้" />;
   if (!aqiRoomData) return <NoData />;
-  if (aqiRoomData["PM2.5"] <= 0) return <ErrorMessage message="Sensor error" />;
-
+  if (aqiRoomData["PM2.5"] || aqiRoomData["PM10"] < 0) return <ErrorMessage message="Sensor error" />;
 
   const aqiValue = aqiRoomData["PM2.5"];
-  const aqiData = getAQIData(aqiValue);
+  const aqiData = getAQIData(aqiValue, translations);
+
   return (
    <div className='glass w-full rounded-xl p-5 flex flex-col md:flex-row gap-5 mb-5 z-0'>
       {/* Image - เปลี่ยนตามระดับ AQI */}

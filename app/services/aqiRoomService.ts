@@ -1,6 +1,11 @@
-import axios from 'axios';
-import { AQI_ROOM_API } from "@app/config/api";
-import { AqiRoomResponse } from '@app/types/aqi-room';
+// Library
+import axios from "axios";
+
+// Config
+import { AQI_ROOM_API } from "@config/api";
+
+// Types
+import { AqiRoomResponse } from "@app/types/aqi-room";
 
 export const fetchAqiRoom = async (): Promise<AqiRoomResponse> => {
   try {
@@ -12,9 +17,9 @@ export const fetchAqiRoom = async (): Promise<AqiRoomResponse> => {
   } catch (err: unknown) {
     // ตรวจสอบประเภทของ error ก่อนการเข้าถึง message
     if (err instanceof Error) {
-      throw new Error(err.message || 'Failed to fetch AqiRoom');
+      throw new Error(err.message || "Failed to fetch AqiRoom");
     } else {
-      throw new Error('An unknown error occurred');
+      throw new Error("An unknown error occurred");
     }
   }
 };

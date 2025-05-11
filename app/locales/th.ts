@@ -1,7 +1,7 @@
 export const th = {
   dropdown: {
     allStations: "สถานีทั้งหมด",
-    unnamed: "สถานีไม่มีชื่อ"
+    unnamed: "สถานีไม่มีชื่อ",
   },
   pages: {
     home: "หน้าหลัก",
@@ -14,7 +14,7 @@ export const th = {
     pm: "ug/m³",
     co: "ppm",
     avg24: "เฉลี่ย 24 ชม.",
-    avg8: "เฉลี่ย 8 ชม."
+    avg8: "เฉลี่ย 8 ชม.",
   },
   airAltImage: "ภาพแสดงระดับคุณภาพอากาศ",
   airLevelAriaLabel: "ระดับคุณภาพอากาศ",
@@ -23,7 +23,7 @@ export const th = {
     good: "ดี",
     moderate: "ปานกลาง",
     unhealthy: "แย่",
-    veryUnhealthy: "แย่มาก"
+    veryUnhealthy: "แย่มาก",
   },
   gold: {
     bar: "ทองคำแท่ง 96.5%",
@@ -34,9 +34,9 @@ export const th = {
     changeToday: "การเปลี่ยนแปลงราคาทองคำวันนี้",
     up: "เพิ่มขึ้น",
     down: "ลดลง",
-    noChange: "ไม่เปลี่ยนแปลง"
+    noChange: "ไม่เปลี่ยนแปลง",
   },
   thaiCurrency: "บาท",
   temperature: "อุณหภูมิ",
-  humidity: "ความชื้น"
+  humidity: "ความชื้น",
 };

@@ -1,3 +1,4 @@
+// Library
 import React from 'react'
 import { FiSearch, FiX } from 'react-icons/fi'
 import { AnimatePresence, motion } from 'framer-motion'

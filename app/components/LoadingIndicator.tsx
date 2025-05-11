@@ -1,4 +1,4 @@
-// components/LoadingIndicator.tsx
+// Library
 import React from 'react'
 
 const LoadingIndicator: React.FC = () => {

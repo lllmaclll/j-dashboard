@@ -1,12 +1,17 @@
+// Library
 import React, { useState } from 'react';
 import { Link, useLocation } from "react-router";
 import { AiFillHome, AiOutlineGold } from 'react-icons/ai';
 import { MdLanguage, MdOutlineAir, MdOutlineMeetingRoom } from 'react-icons/md';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { FaPlug } from "react-icons/fa";
+
+// Context
+import { useLanguage } from '@context/LanguageContext';
+
+// Components
 import ThemeToggle from '@components/ThemeToggle';
 import Hamburger from '@components/Hamburger';
-import { useLanguage } from '@app/context/LanguageContext';
 
 const Sidebar: React.FC = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);

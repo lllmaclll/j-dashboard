@@ -1,13 +1,20 @@
+// Library
 import React from 'react'
+
+// Context
+import { useLanguage } from '@context/LanguageContext'
+
+// Types
 import { AQIResponse } from '@app/types/aqi'
-import { getAQIData } from '@app/utils/getAQIData'
-import { useLanguage } from '@app/context/LanguageContext'
+
+// Utils
+import { getAQIData } from '@utils/getAQIData'
 
 const CardAirQualityOutdoor: React.FC<{ data: AQIResponse }> = ({ data }) => {
   const { translations, language } = useLanguage();
 
   const aqiValue = data.AQILast.AQI.aqi ? parseFloat(data.AQILast.AQI.aqi) : 0;
-  const aqiData = getAQIData(aqiValue);
+  const aqiData = getAQIData(aqiValue, translations);
   const { AQI, PM25, PM10, CO, date, time } = data.AQILast
 
   return (

@@ -1,4 +1,4 @@
-// components/ErrorMessage.tsx
+// Library
 import React from 'react'
 
 interface ErrorMessageProps {

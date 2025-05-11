@@ -3,14 +3,22 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { useLocation } from 'react-router'
 import { MdLanguage } from "react-icons/md";
 
+// Context
+import { useLanguage } from '@context/LanguageContext';
+
+// Hooks
+import { useAQIStations } from '@hooks/useAQIStations';
+
+// Types
+import { AQIResponse } from '@app/types/aqi';
+
+// Utils
+import getPageTitle from '@utils/getPageTitle';
+
 // Components
 import SelectDropdown from '@components/SelectDropdown'
 import SearchBar from '@components/SearchBar'
-import { useAQIStations } from '@app/hooks/useAQIStations';
-import { AQIResponse } from '@app/types/aqi';
-import getPageTitle from '@app/utils/getPageTitle';
-import CardRenderer from '../contents/CardRenderer';
-import { useLanguage } from '@app/context/LanguageContext';
+import CardRenderer from '@components/contents/CardRenderer';
 
 const Main: React.FC = () => {
   const location = useLocation()
@@ -28,7 +36,7 @@ const Main: React.FC = () => {
     setLanguage(language === 'en' ? 'th' : 'en');
   };
 
-  const title = getPageTitle(location.pathname);
+  const title = getPageTitle(location.pathname, translations);
 
   // searchbar handle clear filed
   const handleClear = () => {

@@ -1,7 +1,7 @@
-import { useLanguage } from "@app/context/LanguageContext";
+// Types
+import { Translations } from "@app/types/translations";
 
-const getPageTitle = (pathname: string) => {
-  const { translations } = useLanguage();
+const getPageTitle = (pathname: string, translations: Translations) => {
 
   const routeMap: Record<string, string> = {
     "/": translations.pages.home,

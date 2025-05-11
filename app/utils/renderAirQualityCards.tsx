@@ -1,15 +1,20 @@
-import { useAQIStations } from '@app/hooks/useAQIStations';
-import { useAQIByStationID } from '@app/hooks/useAQIByStationID';
-import ErrorMessage from '@app/components/alerts/ErrorMessage';
-import NoData from '@app/components/alerts/NoData';
-import CardAirQualityOutdoor from '@app/components/contents/CardAirQualityOutdoor';
-import { SkeletonCard } from '@app/components/SkeletonCard';
+// Hooks
+import { useAQIStations } from '@hooks/useAQIStations';
+import { useAQIByStationID } from '@hooks/useAQIByStationID';
+
+// Types
 import { AQIResponse } from '@app/types/aqi';
 
+// Components
+import ErrorMessage from '@components/alerts/ErrorMessage';
+import NoData from '@components/alerts/NoData';
+import CardAirQualityOutdoor from '@components/contents/CardAirQualityOutdoor';
+import { SkeletonCard } from '@components/SkeletonCard';
+
 interface Props {
-  selectedOption: string;
-  showSkeleton: boolean;
-  filteredStations: AQIResponse[] | null;
+    selectedOption: string;
+    showSkeleton: boolean;
+    filteredStations: AQIResponse[] | null;
 }
 
 export const renderAirQualityCards = ({ selectedOption, showSkeleton, filteredStations }: Props) => {

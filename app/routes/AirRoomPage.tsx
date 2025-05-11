@@ -1,4 +1,5 @@
-import Main from "@app/components/layouts/Main";
+// Components
+import Main from "@components/layouts/Main";
 
 function AirRoomPage() {
   return <Main />;

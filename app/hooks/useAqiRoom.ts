@@ -1,19 +1,23 @@
-// src/hooks/useAqiRoom.ts
-import { useEffect, useRef, useState } from 'react'
-import { fetchAqiRoom } from '@app/services/aqiRoomService'
-import { AqiRoomResponse } from '@app/types/aqi-room'
+// Library
+import { useEffect, useRef, useState } from "react";
+
+// Services
+import { fetchAqiRoom } from "@services/aqiRoomService";
+
+// Types
+import { AqiRoomResponse } from "@app/types/aqi-room";
 
 export const useAqiRoom = () => {
-  const [aqiRoomData, setAqiRoomData] = useState<AqiRoomResponse | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  const [aqiRoomData, setAqiRoomData] = useState<AqiRoomResponse | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const prevAqiRoomDataRef = useRef<AqiRoomResponse | null>(null); // เก็บค่าเดิม
 
   useEffect(() => {
     const load = async () => {
-      setLoading(true)
+      setLoading(true);
       try {
-        const res = await fetchAqiRoom()
+        const res = await fetchAqiRoom();
 
         // ถ้า aqiRoomData ก่อนหน้านี้เหมือนกับข้อมูลใหม่ ก็ไม่อัปเดต state
         if (JSON.stringify(res) !== JSON.stringify(prevAqiRoomDataRef.current)) {
@@ -21,22 +25,22 @@ export const useAqiRoom = () => {
           prevAqiRoomDataRef.current = res; // เก็บค่าปัจจุบัน
         }
       } catch (err: unknown) {
-        console.error('AqiRoom API error:', err)
-        setError(err instanceof Error ? err.message : 'An unknown error occurred')
+        console.error("AqiRoom API error:", err);
+        setError(err instanceof Error ? err.message : "An unknown error occurred");
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
+    };
 
     // เรียกใช้งานครั้งแรก
-    load()
+    load();
 
     // ทำการ fetch ทุก 5 วินาที
-    const intervalId = setInterval(load, 5000)
+    const intervalId = setInterval(load, 5000);
 
     // Cleanup เมื่อ component unmount
-    return () => clearInterval(intervalId)
-  }, [])
+    return () => clearInterval(intervalId);
+  }, []);
 
-  return { aqiRoomData, loading, error }
-}
+  return { aqiRoomData, loading, error };
+};

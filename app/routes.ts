@@ -1,3 +1,4 @@
+// Library
 import { route, index, RouteConfig } from '@react-router/dev/routes'
 
 export default [
@@ -6,5 +7,4 @@ export default [
   route('air-room', 'routes/AirRoomPage.tsx'),
   route('gold', 'routes/GoldPage.tsx'),
   route('plug', 'routes/PlugPage.tsx'),
-  // route('*', 'routes/NotFoundPage.tsx'),
 ] satisfies RouteConfig;

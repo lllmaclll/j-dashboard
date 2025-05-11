@@ -1,14 +1,19 @@
-import axios from 'axios';
-import { GOLD_API } from "@app/config/api";
+// Library
+import axios from "axios";
+
+// Config
+import { GOLD_API } from "@config/api";
+
+// Types
 import { GoldResponse } from "@app/types/gold";
 
-export const fetchGoldPrice = async (): Promise<GoldResponse['response']> => {
+export const fetchGoldPrice = async (): Promise<GoldResponse["response"]> => {
   try {
     const res = await axios.get<GoldResponse>(GOLD_API);
 
     // ตรวจสอบว่ามีข้อมูล response หรือไม่
     if (!res?.data?.response?.price) {
-      throw new Error('Invalid data structure from Gold API');
+      throw new Error("Invalid data structure from Gold API");
     }
 
     // คืนค่าข้อมูลที่ต้องการ
@@ -16,9 +21,9 @@ export const fetchGoldPrice = async (): Promise<GoldResponse['response']> => {
   } catch (err: unknown) {
     // ตรวจสอบประเภทของ error ก่อนการเข้าถึง message
     if (err instanceof Error) {
-      throw new Error(err.message || 'Failed to fetch gold prices');
+      throw new Error(err.message || "Failed to fetch gold prices");
     } else {
-      throw new Error('An unknown error occurred');
+      throw new Error("An unknown error occurred");
     }
   }
 };

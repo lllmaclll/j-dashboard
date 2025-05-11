@@ -1,8 +1,15 @@
+// Library
 import { isRouteErrorResponse, Links, Meta, Outlet, Scripts } from 'react-router'
 import type { Route } from "@react-router/types/app/+types/root.ts";
-import Sidebar from '@app/components/layouts/Sidebar';
+
+// Context
+import { LanguageProvider } from '@context/LanguageContext';
+
+// Components
+import Sidebar from '@components/layouts/Sidebar';
+
+// Styles
 import '@app/app.css'
-import { LanguageProvider } from './context/LanguageContext';
 
 export function meta({}: Route.MetaArgs) {
   return [

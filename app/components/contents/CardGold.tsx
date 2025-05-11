@@ -1,10 +1,19 @@
-import { useGoldPrice } from '@app/hooks/useGoldPrice' // ปรับตาม path ของคุณ
+// Library
 import React from 'react'
-import { SkeletonCard } from '../SkeletonCard'
-import ErrorMessage from '../alerts/ErrorMessage'
-import NoData from '../alerts/NoData'
-import { useLanguage } from '@app/context/LanguageContext'
-import { formatDateTime } from '@app/utils/formatDateTime'
+
+// Context
+import { useLanguage } from '@context/LanguageContext'
+
+// Hooks
+import { useGoldPrice } from '@hooks/useGoldPrice' // ปรับตาม path ของคุณ
+
+// Utils
+import { formatDateTime } from '@utils/formatDateTime'
+
+// Components
+import { SkeletonCard } from '@components/SkeletonCard'
+import ErrorMessage from '@components/alerts/ErrorMessage'
+import NoData from '@components/alerts/NoData'
 
 const CardGold: React.FC = () => {
   const { data, loading, error } = useGoldPrice()

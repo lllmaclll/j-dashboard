@@ -1,19 +1,24 @@
-import CardGold from "./CardGold";
-import CardHome from "./CardHome";
-import CardPlug from "./CardPlug";
-import { renderAirQualityCards } from "@app/utils/renderAirQualityCards";
+// Types
 import { AQIResponse } from "@app/types/aqi";
-import CardAirQualityIndoor from "./CardAirQualityIndoor";
+
+// Utils
+import { renderAirQualityCards } from "@utils/renderAirQualityCards";
+
+// Components
+import CardGold from "@components/contents/CardGold";
+import CardHome from "@components/contents/CardHome";
+import CardPlug from "@components/contents/CardPlug";
+import CardAirQualityIndoor from "@components/contents/CardAirQualityIndoor";
 
 type RouteComponent = React.ReactNode | ((props?: any) => React.ReactNode);
 // React.ReactNode รองรับแค่ element, string, number, fragment ฯลฯ — ไม่รองรับฟังก์ชัน
 
 const routeComponentMap: Record<string, RouteComponent> = {
-  '/': <CardHome />,
+  '/': () => <CardHome />,
   '/air': renderAirQualityCards,
-  '/air-room': <CardAirQualityIndoor />,
-  '/gold': <CardGold />,
-  '/plug': <CardPlug />
+  '/air-room': () => <CardAirQualityIndoor />,
+  '/gold': () => <CardGold />,
+  '/plug': () => <CardPlug />
 }
 
 const CardRenderer = ({ pathname, selectedOption, showSkeleton, filteredStations }: { pathname: string, selectedOption?: string, showSkeleton?: boolean, filteredStations?: AQIResponse[] | null }) => {

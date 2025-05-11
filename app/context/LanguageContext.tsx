@@ -1,6 +1,9 @@
+// Library
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { en } from '../locales/en';  // import ภาษาอังกฤษ
-import { th } from '../locales/th';  // import ภาษาไทย
+
+// Locales
+import { en } from '@locales/en';
+import { th } from '@locales/th';
 
 // กำหนดประเภทของภาษาที่รองรับ
 type Language = 'en' | 'th';
@@ -12,7 +15,7 @@ const LanguageContext = createContext<{
   translations: typeof en | typeof th; // ใช้ประเภทของข้อความ
 }>({
   language: 'en', // ค่า default เป็นภาษาอังกฤษ
-  setLanguage: () => {},
+  setLanguage: () => { },
   translations: en, // ใช้ภาษาอังกฤษเป็น default
 });
 

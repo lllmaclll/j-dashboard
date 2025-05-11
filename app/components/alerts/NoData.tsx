@@ -1,4 +1,4 @@
-// components/NoData.tsx
+// Library
 import React from 'react'
 
 const NoData: React.FC = () => {
