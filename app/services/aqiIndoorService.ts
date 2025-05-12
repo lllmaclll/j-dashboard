@@ -2,14 +2,14 @@
 import axios from "axios";
 
 // Config
-import { AQI_ROOM_API } from "@config/api";
+import { AQI_API_INDOOR } from "@config/api";
 
 // Types
-import { AqiRoomResponse } from "@app/types/aqi-room";
+import { AQIIndoorResponse } from "@app/types/aqi-indoor";
 
-export const fetchAqiRoom = async (): Promise<AqiRoomResponse> => {
+export const fetchAQIIndoor = async (): Promise<AQIIndoorResponse> => {
   try {
-    const res = await axios.get<AqiRoomResponse>(AQI_ROOM_API);
+    const res = await axios.get<AQIIndoorResponse>(AQI_API_INDOOR);
     // console.log('AqiRoom API response:', res);
 
     // คืนค่าข้อมูลที่ต้องการ

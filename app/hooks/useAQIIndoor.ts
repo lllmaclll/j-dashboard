@@ -2,22 +2,22 @@
 import { useEffect, useRef, useState } from "react";
 
 // Services
-import { fetchAqiRoom } from "@services/aqiRoomService";
+import { fetchAQIIndoor } from "@app/services/aqiIndoorService";
 
 // Types
-import { AqiRoomResponse } from "@app/types/aqi-room";
+import { AQIIndoorResponse } from "@app/types/aqi-indoor";
 
-export const useAqiRoom = () => {
-  const [aqiRoomData, setAqiRoomData] = useState<AqiRoomResponse | null>(null);
+export const useAQIIndoor = () => {
+  const [aqiRoomData, setAqiRoomData] = useState<AQIIndoorResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const prevAqiRoomDataRef = useRef<AqiRoomResponse | null>(null); // เก็บค่าเดิม
+  const prevAqiRoomDataRef = useRef<AQIIndoorResponse | null>(null); // เก็บค่าเดิม
 
   useEffect(() => {
     const load = async () => {
       setLoading(true);
       try {
-        const res = await fetchAqiRoom();
+        const res = await fetchAQIIndoor();
 
         // ถ้า aqiRoomData ก่อนหน้านี้เหมือนกับข้อมูลใหม่ ก็ไม่อัปเดต state
         if (JSON.stringify(res) !== JSON.stringify(prevAqiRoomDataRef.current)) {

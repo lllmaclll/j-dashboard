@@ -2,22 +2,22 @@
 import { useEffect, useRef, useState } from "react";
 
 // Services
-import { fetchAQIByStation } from "@services/aqiService";
+import { fetchAQIOutdoorByStation } from "@app/services/aqiOutdoorService";
 
 // Types
-import { AQIResponse, MultiStationResponse } from "@app/types/aqi";
+import { AQIOutdoorResponse, MultiStationResponse } from "@app/types/aqi-outdoor";
 
-export const useAQIByStationID = (stationID: string) => {
-  const [aqiData, setAqiData] = useState<MultiStationResponse | AQIResponse | null>(null);
+export const useAQIOutdoorByStationID = (stationID: string) => {
+  const [aqiData, setAqiData] = useState<MultiStationResponse | AQIOutdoorResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const prevAqiDataRef = useRef<MultiStationResponse | AQIResponse | null>(null); // ใช้ useRef เพื่อเก็บข้อมูลก่อนหน้า
+  const prevAqiDataRef = useRef<MultiStationResponse | AQIOutdoorResponse | null>(null); // ใช้ useRef เพื่อเก็บข้อมูลก่อนหน้า
 
   useEffect(() => {
     const load = async () => {
       setLoading(true);
       try {
-        const data = await fetchAQIByStation(stationID);
+        const data = await fetchAQIOutdoorByStation(stationID);
 
         // เช็คว่าข้อมูลใหม่แตกต่างจากข้อมูลก่อนหน้าไหม
         if (JSON.stringify(data) !== JSON.stringify(prevAqiDataRef.current)) {

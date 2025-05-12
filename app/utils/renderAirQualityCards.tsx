@@ -1,9 +1,9 @@
 // Hooks
-import { useAQIStations } from '@hooks/useAQIStations';
-import { useAQIByStationID } from '@hooks/useAQIByStationID';
+import { useAQIOutdoorStations } from '@app/hooks/useAQIOutdoorStations';
+import { useAQIOutdoorByStationID } from '@app/hooks/useAQIOutdoorByStationID';
 
 // Types
-import { AQIResponse } from '@app/types/aqi';
+import { AQIOutdoorResponse } from '@app/types/aqi-outdoor';
 
 // Components
 import ErrorMessage from '@components/alerts/ErrorMessage';
@@ -14,15 +14,15 @@ import { SkeletonCard } from '@components/SkeletonCard';
 interface Props {
     selectedOption: string;
     showSkeleton: boolean;
-    filteredStations: AQIResponse[] | null;
+    filteredStations: AQIOutdoorResponse[] | null;
 }
 
 export const renderAirQualityCards = ({ selectedOption, showSkeleton, filteredStations }: Props) => {
-    const { stations, loading: stationsLoading, error: stationsError } = useAQIStations();
-    const { aqiData, loading: dataLoading, error: dataError } = useAQIByStationID(selectedOption);
+    const { stations, loading: stationsLoading, error: stationsError } = useAQIOutdoorStations();
+    const { aqiData, loading: dataLoading, error: dataError } = useAQIOutdoorByStationID(selectedOption);
 
     // Type guard เพื่อตรวจสอบว่า aqiData เป็น AQIResponse จริง
-    const isAQIResponse = (data: any): data is AQIResponse => {
+    const isAQIResponse = (data: any): data is AQIOutdoorResponse => {
         return data && typeof data === 'object' && 'stationID' in data;
     };
 

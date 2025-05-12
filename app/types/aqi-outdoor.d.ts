@@ -23,7 +23,7 @@ export interface AQILastData {
   AQI: AQIData;
 }
 
-export interface AQIResponse {
+export interface AQIOutdoorResponse {
   stationID: string;
   nameTH: string;
   nameEN: string;
@@ -38,5 +38,5 @@ export interface AQIResponse {
 
 // สำหรับ response แบบหลายสถานี
 export interface MultiStationResponse {
-  stations: AQIResponse[];
+  stations: AQIOutdoorResponse[];
 }

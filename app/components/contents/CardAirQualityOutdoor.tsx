@@ -5,7 +5,7 @@ import React from 'react'
 import { useLanguage } from '@context/LanguageContext'
 
 // Types
-import { AQIResponse } from '@app/types/aqi'
+import { AQIResponse } from '@app/types/aqi-outdoor'
 
 // Utils
 import { getAQIData } from '@utils/getAQIData'

@@ -1,5 +1,5 @@
 // Types
-import { AQIResponse } from "@app/types/aqi";
+import { AQIResponse } from "@app/types/aqi-outdoor";
 
 // Utils
 import { renderAirQualityCards } from "@utils/renderAirQualityCards";

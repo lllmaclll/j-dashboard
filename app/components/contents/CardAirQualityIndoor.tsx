@@ -5,7 +5,7 @@ import React from 'react'
 import { useLanguage } from '@context/LanguageContext';
 
 // Hooks
-import { useAqiRoom } from '@hooks/useAqiRoom';
+import { useAQIIndoor } from '@app/hooks/useAQIIndoor';
 
 // Utils
 import { getAQIData } from '@utils/getAQIData';
@@ -18,7 +18,7 @@ import NoData from '@components/alerts/NoData';
 const CardAirQualityIndoor: React.FC = () => {
   const { translations } = useLanguage();
 
-  const { aqiRoomData, loading, error } = useAqiRoom();
+  const { aqiRoomData, loading, error } = useAQIIndoor();
 
   if (loading) return <SkeletonCard />;
   if (error) return <ErrorMessage message="ไม่สามารถโหลดข้อมูล aqi ภายในห้องได้" />;

@@ -7,10 +7,10 @@ import { MdLanguage } from "react-icons/md";
 import { useLanguage } from '@context/LanguageContext';
 
 // Hooks
-import { useAQIStations } from '@hooks/useAQIStations';
+import { useAQIOutdoorStations } from '@app/hooks/useAQIOutdoorStations';
 
 // Types
-import { AQIResponse } from '@app/types/aqi';
+import { AQIOutdoorResponse } from '@app/types/aqi-outdoor';
 
 // Utils
 import getPageTitle from '@utils/getPageTitle';
@@ -26,9 +26,9 @@ const Main: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedOption, setSelectedOption] = useState('all');
   const [showSkeleton, setShowSkeleton] = useState(false)
-  const [filteredStations, setFilteredStations] = useState<AQIResponse[] | null>(null)
+  const [filteredStations, setFilteredStations] = useState<AQIOutdoorResponse[] | null>(null)
 
-  const { stations, loading: stationsLoading } = useAQIStations()
+  const { stations, loading: stationsLoading } = useAQIOutdoorStations()
 
   const { translations, language, setLanguage } = useLanguage();
     

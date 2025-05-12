@@ -2,12 +2,12 @@
 import { useEffect, useRef, useState } from "react";
 
 // Services
-import { fetchAllStationsAQI } from "@services/aqiService";
+import { fetchAQIOutdoorAllStations } from "@app/services/aqiOutdoorService";
 
 // Types
-import { MultiStationResponse } from "@app/types/aqi";
+import { MultiStationResponse } from "@app/types/aqi-outdoor";
 
-export const useAQIStations = () => {
+export const useAQIOutdoorStations = () => {
   const [stations, setStations] = useState<MultiStationResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -17,7 +17,7 @@ export const useAQIStations = () => {
     const load = async () => {
       setLoading(true);
       try {
-        const data = await fetchAllStationsAQI();
+        const data = await fetchAQIOutdoorAllStations();
 
         // เช็คว่า data ที่ได้รับใหม่แตกต่างจากข้อมูลเก่าหรือไม่
         if (JSON.stringify(data) !== JSON.stringify(prevStationsRef.current)) {
