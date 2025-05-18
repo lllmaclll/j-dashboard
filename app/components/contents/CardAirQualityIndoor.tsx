@@ -18,12 +18,12 @@ import NoData from '@components/alerts/NoData';
 const CardAirQualityIndoor: React.FC = () => {
   const { translations } = useLanguage();
 
-  const { aqiRoomData, loading, error } = useAQIIndoor();
+  const { aqiRoomData, initialLoading, error } = useAQIIndoor();
 
-  if (loading) return <SkeletonCard />;
+  if (initialLoading) return <SkeletonCard />;
   if (error) return <ErrorMessage message="ไม่สามารถโหลดข้อมูล aqi ภายในห้องได้" />;
   if (!aqiRoomData) return <NoData />;
-  if (aqiRoomData["PM2.5"] || aqiRoomData["PM10"] < 0) return <ErrorMessage message="Sensor error" />;
+  if (aqiRoomData["PM2.5"] < 0 || aqiRoomData["PM10"] < 0) return <ErrorMessage message="Sensor error" />;
 
   const aqiValue = aqiRoomData["PM2.5"];
   const aqiData = getAQIData(aqiValue, translations);

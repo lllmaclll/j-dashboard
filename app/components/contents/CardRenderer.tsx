@@ -1,5 +1,5 @@
-// Types
-import { AQIResponse } from "@app/types/aqi-outdoor";
+// Type
+import { AQIOutdoorResponse } from "@app/types/aqi-outdoor";
 
 // Utils
 import { renderAirQualityCards } from "@utils/renderAirQualityCards";
@@ -9,6 +9,7 @@ import CardGold from "@components/contents/CardGold";
 import CardHome from "@components/contents/CardHome";
 import CardPlug from "@components/contents/CardPlug";
 import CardAirQualityIndoor from "@components/contents/CardAirQualityIndoor";
+
 
 type RouteComponent = React.ReactNode | ((props?: any) => React.ReactNode);
 // React.ReactNode รองรับแค่ element, string, number, fragment ฯลฯ — ไม่รองรับฟังก์ชัน
@@ -21,7 +22,7 @@ const routeComponentMap: Record<string, RouteComponent> = {
   '/plug': () => <CardPlug />
 }
 
-const CardRenderer = ({ pathname, selectedOption, showSkeleton, filteredStations }: { pathname: string, selectedOption?: string, showSkeleton?: boolean, filteredStations?: AQIResponse[] | null }) => {
+const CardRenderer = ({ pathname, selectedOption, showSkeleton, filteredStations }: { pathname: string, selectedOption?: string, showSkeleton?: boolean, filteredStations?: AQIOutdoorResponse[] | null }) => {
   const component = routeComponentMap[pathname];
   if (!component) {
     throw new Error(`No component found for path: ${pathname}`);

@@ -9,13 +9,12 @@ import { AQIIndoorResponse } from "@app/types/aqi-indoor";
 
 export const useAQIIndoor = () => {
   const [aqiRoomData, setAqiRoomData] = useState<AQIIndoorResponse | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [initialLoading, setInitialLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const prevAqiRoomDataRef = useRef<AQIIndoorResponse | null>(null); // เก็บค่าเดิม
 
   useEffect(() => {
     const load = async () => {
-      setLoading(true);
       try {
         const res = await fetchAQIIndoor();
 
@@ -28,7 +27,7 @@ export const useAQIIndoor = () => {
         console.error("AqiRoom API error:", err);
         setError(err instanceof Error ? err.message : "An unknown error occurred");
       } finally {
-        setLoading(false);
+        setInitialLoading(false);
       }
     };
 
@@ -42,5 +41,5 @@ export const useAQIIndoor = () => {
     return () => clearInterval(intervalId);
   }, []);
 
-  return { aqiRoomData, loading, error };
+  return { aqiRoomData, initialLoading, error };
 };
